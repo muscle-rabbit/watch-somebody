@@ -1,8 +1,7 @@
 {
-  "name": "start-kit-react",
+  "name": "watch-somebody",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:shinyamizuno1008/BBS.git",
   "author": "shinyamizuno1008 <bitsukun75@gmail.com>",
   "license": "MIT",
   "scripts": {
