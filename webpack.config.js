@@ -24,8 +24,14 @@ module.exports = {
     }
   },
   output: {
-    filename: 'static/js/bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    chunkFilename: '[name].bundle.js',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all'
+    }
   },
   plugins: [
     new htmlWebpackPlugin({
