@@ -9,7 +9,7 @@ import (
 )
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
-	c := GetConnect()
+	c := getConnect()
 	callbackURL := "http://localhost:8080/auth/twitter/callback"
 	v := url.Values{}
 	v.Set("oauth_token", "")
