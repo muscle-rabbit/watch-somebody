@@ -2,7 +2,7 @@ const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: './src/index.tsx',
   module: {
     rules: [
@@ -24,14 +24,7 @@ module.exports = {
     }
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    chunkFilename: '[name].bundle.js',
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all'
-    }
+    path: path.resolve(__dirname, '../dist')
   },
   plugins: [
     new htmlWebpackPlugin({
