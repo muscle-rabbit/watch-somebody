@@ -1,16 +1,16 @@
 import * as React from 'react';
-import { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { RouteComponentProps } from 'react-router-dom';
+import { Subscribe } from 'unstated-typescript';
 
 import { Container } from 'react-bootstrap';
 import Form from '../molecules/Form';
+import TargetContainer from '../../containers/TargetContainer';
 
 interface Props extends RouteComponentProps {}
 
 const component: React.FC<Props> = ({ history }) => {
-  const [target, setTarget] = useState('');
   const isEmpty = (text: string) => {
     if (text === '') {
       return true;
@@ -18,26 +18,31 @@ const component: React.FC<Props> = ({ history }) => {
     return false;
   };
 
-  const changeHandler = (e: any) => {
-    setTarget(e.target.value);
-  };
-
-  const submitTargetHandler = () => {
+  const submitTargetHandler = (target: string) => {
     history.push('/dashboard');
     axios
       .post('/dashboard', { target: target })
       .then(res => console.log(res))
       .catch(res => console.log(res));
   };
+
   return (
-    <OutWrapper>
-      <Form
-        isEmpty={isEmpty(target)}
-        submitHandler={submitTargetHandler}
-        changeHandler={changeHandler}
-        text={target}
-      />
-    </OutWrapper>
+    <Subscribe to={[TargetContainer]}>
+      {target => (
+        <OutWrapper>
+          <Form
+            isEmpty={isEmpty(target.state.target)}
+            submitHandler={() => {
+              submitTargetHandler(target.state.target);
+            }}
+            changeHandler={(e: React.ChangeEvent<HTMLInputElement>) =>
+              target.setTarget(e.target.value as string)
+            }
+            text={target.state.target}
+          />
+        </OutWrapper>
+      )}
+    </Subscribe>
   );
 };
 

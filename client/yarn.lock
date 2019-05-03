@@ -4887,7 +4887,7 @@ hoist-non-react-statics@^2.3.1:
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.5.tgz#c5903cf409c0dfd908f388e619d86b9c1174cb47"
   integrity sha512-rqcy4pJo55FTTLWt+bU8ukscqHeE/e9KWvsOW2b/a3afxQZhwkQdT1rPPCJ0rYXdj4vNcasY8zHTH+jF/qStxw==
 
-hoist-non-react-statics@^3.1.0:
+hoist-non-react-statics@^3.1.0, hoist-non-react-statics@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.3.0.tgz#b09178f0122184fb95acf525daaecb4d8f45958b"
   integrity sha512-0XsbTXxgiaCDYDIWFcwkmerZPSwywfUqYmwT4jzewKTQSWoE6FCMoUVOeBJWK3E/CrWbxRG3m5GzY4lnIwGRBA==
@@ -9820,6 +9820,13 @@ unset-value@^1.0.0:
   dependencies:
     has-value "^0.3.1"
     isobject "^3.0.0"
+
+unstated-typescript@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/unstated-typescript/-/unstated-typescript-2.1.7.tgz#1e96b4b4f1b6c8c2b8143bc4d127b11f06440f92"
+  integrity sha512-SIRDIOMjUr++Uj0ibUcJjPKdwR03RcbIOwaefI8eJgB68ufJ30SjGbTOVXrOe4BYwNiIpVOSKjOX2yWFsMBZQA==
+  dependencies:
+    hoist-non-react-statics "^3.3.0"
 
 unstated@^2.1.1:
   version "2.1.1"
