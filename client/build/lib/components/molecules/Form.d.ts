@@ -1,6 +1,6 @@
 import * as React from 'react';
 interface Props {
-    target: string;
+    text: string;
     isEmpty: boolean;
     changeHandler: (e: any) => void;
     submitHandler: () => void;

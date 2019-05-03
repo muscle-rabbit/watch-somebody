@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 // import { createBrowserHistory, } from 'history'
 
 interface Props {
-  target: string;
+  text: string;
   isEmpty: boolean;
 
   changeHandler: (e: any) => void;
@@ -16,34 +16,19 @@ const Component: React.FC<Props> = ({
   isEmpty,
   changeHandler,
   submitHandler,
-  target,
+  text,
   ...props
 }) => {
-  const RedirectButton = withRouter(({ history }) => {
-    return (
-      <Button
-        variant="primary"
-        type="submit"
-        onClick={() => {
-          submitHandler();
-          history.push('/dashboard');
-        }}
-      >
-        決定
-      </Button>
-    );
-  });
-
   return (
     <StyledForm>
       <Form.Group controlId="">
         <Form.Label>追っかけサーチ</Form.Label>
-        <Form.Control type="text" onChange={changeHandler} value={target} />
+        <Form.Control type="text" onChange={changeHandler} value={text} />
         <Form.Text className="text-muted">
           追っかけをしたい人の名前を入力してくだい。
         </Form.Text>
       </Form.Group>
-      <RedirectButton />
+      <Button onClick={submitHandler}>決定</Button>
     </StyledForm>
   );
 };

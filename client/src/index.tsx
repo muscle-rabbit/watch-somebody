@@ -1,6 +1,6 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-import App from './components/App'
+import Route from './components/Route';
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<Route />, document.getElementById('root'));

@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 )
 
 func echo(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
+	if r.URL.Path != "/dashboard" {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
@@ -27,14 +26,10 @@ func echo(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Sorry, only POST methods are supported.")
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
-	temple := template.Must(template.ParseFiles("../dist/index.html"))
-	temple.Execute(w, nil)
-}
-
 func main() {
 	fs := http.FileServer(http.Dir("../dist"))
 	http.Handle("/", fs)
+	http.HandleFunc("/dashboard", echo)
 	if err := http.ListenAndServe(":8080", nil); err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
