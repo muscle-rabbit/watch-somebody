@@ -33,8 +33,6 @@ func (*Client) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			log.Fatal("decoder error")
 			panic(err)
 		}
-		// client.UserData["target"] = v["target"]
-		// log.Println(v["target"])
 
 		getVerifiedUserObjects(v["target"])
 
@@ -54,10 +52,6 @@ func getVerifiedUserObjects(target string) *[]anaconda.User {
 		if user.Verified == true {
 			verifiedUsers = append(verifiedUsers, user)
 		}
-	}
-
-	for _, id := range verifiedUsers {
-		log.Println(id)
 	}
 
 	return &verifiedUsers
