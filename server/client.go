@@ -36,14 +36,14 @@ func (*Client) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// client.UserData["target"] = v["target"]
 		// log.Println(v["target"])
 
-		getTargetTwitterID(v["target"])
+		getVerifiedUserObjects(v["target"])
 
 	}
 	fmt.Fprintf(w, "Sorry, only POST methods are supported.")
 }
 
-func getTargetTwitterID(target string) {
-	var verifiedUserIDs []int64
+func getVerifiedUserObjects(target string) *[]anaconda.User {
+	var verifiedUsers []anaconda.User
 	users, err := client.TwitterAPI.GetUserSearch(target, nil)
 	if err != nil {
 		log.Fatal("twitter eror")
@@ -52,13 +52,13 @@ func getTargetTwitterID(target string) {
 
 	for _, user := range users {
 		if user.Verified == true {
-			verifiedUserIDs = append(verifiedUserIDs, user.Id)
+			verifiedUsers = append(verifiedUsers, user)
 		}
 	}
 
-	for _, id := range verifiedUserIDs {
+	for _, id := range verifiedUsers {
 		log.Println(id)
 	}
-	// value := gjson.Get(strings(json))
 
+	return &verifiedUsers
 }
