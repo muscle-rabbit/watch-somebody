@@ -6,7 +6,7 @@ import { Subscribe } from 'unstated-typescript';
 
 import { Container } from 'react-bootstrap';
 import Form from '../molecules/Form';
-import TargetContainer from '../../containers/TargetContainer';
+import TargetContainer from '../../containers/SearchContainer';
 
 interface Props extends RouteComponentProps {}
 
@@ -18,27 +18,27 @@ const component: React.FC<Props> = ({ history }) => {
     return false;
   };
 
-  const submitTargetHandler = (target: string) => {
-    history.push('/dashboard');
-    axios
-      .post('/dashboard', { target: target })
+  const submitTargetHandler = async (query: string) => {
+    await axios
+      .post('/search', { query: query })
       .then(res => console.log(res))
       .catch(res => console.log(res));
+    history.push(`/search?q=${query}`);
   };
 
   return (
     <Subscribe to={[TargetContainer]}>
-      {target => (
+      {search => (
         <OutWrapper>
           <Form
-            isEmpty={isEmpty(target.state.target)}
+            isEmpty={isEmpty(search.state.query)}
             submitHandler={() => {
-              submitTargetHandler(target.state.target);
+              submitTargetHandler(search.state.query);
             }}
             changeHandler={(e: React.ChangeEvent<HTMLInputElement>) =>
-              target.setTarget(e.target.value as string)
+              search.setTarget(e.target.value as string)
             }
-            text={target.state.target}
+            text={search.state.query}
           />
         </OutWrapper>
       )}

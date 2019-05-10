@@ -16,7 +16,7 @@ type Client struct {
 }
 
 func (*Client) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/dashboard" {
+	if r.URL.Path != "/search" {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
@@ -26,16 +26,22 @@ func (*Client) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, "ParseForm() err: %v", err)
 			return
 		}
-		var v map[string]string
 		decoder := json.NewDecoder(r.Body)
-		err := decoder.Decode(&v)
+		err := decoder.Decode(&client.UserData)
 		if err != nil {
 			log.Fatal("decoder error")
 			panic(err)
 		}
-
-		getVerifiedUserObjects(v["target"])
-
+		w.Header().Set("Server", "A Go Web Server")
+		w.WriteHeader(200)
+	case "GET":
+		if err := r.ParseForm(); err != nil {
+			fmt.Fprintf(w, "ParseForm() err: %v", err)
+			return
+		}
+		log.Println("hello from golang")
+		encoder := json.NewEncoder(w)
+		encoder.Encode(getVerifiedUserObjects(client.UserData["query"]))
 	}
 	fmt.Fprintf(w, "Sorry, only POST methods are supported.")
 }

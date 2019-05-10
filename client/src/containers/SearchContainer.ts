@@ -1,15 +1,15 @@
 import { Container } from 'unstated-typescript';
 
-type TargetState = {
-  target: string;
+type queryState = {
+  query: string;
 };
 
-class TargetContainer extends Container<TargetState> {
+class TargetContainer extends Container<queryState> {
   public state = {
-    target: ''
+    query: ''
   };
   public setTarget(text: string) {
-    this.setState({ target: text });
+    this.setState({ query: text });
   }
 }
 
