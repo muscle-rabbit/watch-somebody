@@ -26,6 +26,8 @@ func (*Client) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, "ParseForm() err: %v", err)
 			return
 		}
+		defer r.Body.Close()
+		log.Println("hello from golang in post method")
 		decoder := json.NewDecoder(r.Body)
 		err := decoder.Decode(&client.UserData)
 		if err != nil {
@@ -39,11 +41,13 @@ func (*Client) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, "ParseForm() err: %v", err)
 			return
 		}
-		log.Println("hello from golang")
+		defer r.Body.Close()
+		log.Println("hello from golang in get method")
 		encoder := json.NewEncoder(w)
 		encoder.Encode(getVerifiedUserObjects(client.UserData["query"]))
+	default:
+		fmt.Fprintf(w, "Sorry, only POST methods are supported.")
 	}
-	fmt.Fprintf(w, "Sorry, only POST methods are supported.")
 }
 
 func getVerifiedUserObjects(target string) *[]anaconda.User {
