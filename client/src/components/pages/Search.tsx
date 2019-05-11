@@ -5,13 +5,14 @@ import { Subscribe } from 'unstated-typescript';
 import { User } from 'twitter-d';
 
 import SearchContainer from '../../containers/SearchContainer';
+import Card from '../molecules/Card';
 
 interface Props {}
 
 const component: React.FC<Props> = () => {
   const [varidatedUsers, setUser]: [
     User[] | undefined,
-    React.Dispatch<User[]>
+    React.Dispatch<User[] | undefined>
   ] = useState();
   async function getVaridatedUsers(): Promise<User[] | undefined> {
     let data;
@@ -24,13 +25,7 @@ const component: React.FC<Props> = () => {
     }
     return data;
   }
-  useEffect(() => {
-    getVaridatedUsers().then(users => {
-      if (users !== undefined) {
-        setUser(users);
-      }
-    });
-  });
+  getVaridatedUsers().then(users => setUser(users));
   return (
     <Subscribe to={[SearchContainer]}>
       {search => (
@@ -39,10 +34,16 @@ const component: React.FC<Props> = () => {
           {varidatedUsers !== undefined ? (
             varidatedUsers.map((user, i) => {
               return (
-                <h1>
-                  Variated User No.
-                  {i}: {user.name}
-                </h1>
+                <Card
+                  key={user.id}
+                  name={user.name}
+                  screen_name={user.screen_name}
+                  profile_banner_url={user.profile_banner_url}
+                  profile_image_url_https={user.profile_image_url_https}
+                  default_profile_image={user.default_profile_image}
+                  description={user.description}
+                  url={`https://twitter.com/${user.screen_name}`}
+                />
               );
             })
           ) : (

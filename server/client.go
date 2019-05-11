@@ -45,6 +45,8 @@ func (*Client) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		log.Println("hello from golang in get method")
 		encoder := json.NewEncoder(w)
 		encoder.Encode(getVerifiedUserObjects(client.UserData["query"]))
+		w.Header().Set("Server", "A Go Web Server")
+		w.WriteHeader(200)
 	default:
 		fmt.Fprintf(w, "Sorry, only POST methods are supported.")
 	}
