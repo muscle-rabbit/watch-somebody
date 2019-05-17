@@ -5,9 +5,11 @@ import { User, UserEntities } from 'twitter-d';
 import { Card, Button } from 'react-bootstrap';
 import Link from '../atoms/Link';
 import Img from '../atoms/Image';
+import { GetTimeline } from '../pages/Search';
 
 type CardProps = Pick<
   User,
+  | 'id_str'
   | 'name'
   | 'screen_name'
   | 'default_profile_image'
@@ -19,16 +21,21 @@ type CardProps = Pick<
 
 type Props = {
   url: string;
+  onSelect: React.Dispatch<GetTimeline | undefined>;
+  onSubmit: (target: string) => void;
 };
 
 const component: React.FC<CardProps> = ({
   name,
+  id_str,
   screen_name,
   default_profile_image,
   profile_image_url_https,
   profile_banner_url,
   url,
   description,
+  onSelect,
+  onSubmit,
   ...props
 }) => {
   return (
@@ -43,7 +50,16 @@ const component: React.FC<CardProps> = ({
           <IconLink url={typeof url === 'string' ? url : ''}>
             <Icon src={profile_image_url_https} />
           </IconLink>
-          <Button>選ぶ</Button>
+          <Button
+            onClick={() =>
+              onSelect({
+                id_str: id_str,
+                name: name
+              })
+            }
+          >
+            選ぶ
+          </Button>
         </IconButtonAlign>
         <NameLink url={typeof url === 'string' ? url : ''}>
           <UserName>{name}</UserName>
