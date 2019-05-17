@@ -4,6 +4,7 @@
 
 // storiesOf('Button', module).add('with text', () => (
 //   <Card
+//     id_str={'1'}
 //     name={'shinyamizuno'}
 //     screen_name={'shinzooon'}
 //     default_profile_image={true}

@@ -53,8 +53,6 @@ const component: React.FC<Props> = ({ history }) => {
     [varidatedUsers]
   );
 
-  console.log(selectedUser);
-
   return (
     <Subscribe to={[SearchContainer]}>
       {search => (

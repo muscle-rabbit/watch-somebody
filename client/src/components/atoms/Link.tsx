@@ -3,7 +3,7 @@ import syled from 'styled-components';
 
 interface Props {
   url: string;
-  children: React.ReactChild;
+  children: React.ReactChild | React.ReactChild[];
 }
 
 const component: React.FC<Props> = ({ url, children, ...props }) => (

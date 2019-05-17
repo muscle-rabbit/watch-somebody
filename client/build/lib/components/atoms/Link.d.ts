@@ -1,7 +1,7 @@
 import * as React from 'react';
 interface Props {
     url: string;
-    children: React.ReactChild;
+    children: React.ReactChild | React.ReactChild[];
 }
 declare const component: React.FC<Props>;
 export default component;

@@ -1,7 +1,6 @@
 import * as React from 'react';
-interface Props {
-    src: string;
-    fit?: boolean;
-}
+declare type Props = {
+    text: string;
+};
 declare const component: React.FC<Props>;
 export default component;

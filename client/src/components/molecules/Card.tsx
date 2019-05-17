@@ -6,6 +6,7 @@ import { Card, Button } from 'react-bootstrap';
 import Link from '../atoms/Link';
 import Img from '../atoms/Image';
 import { GetTimeline } from '../pages/Search';
+import { color } from '../../design';
 
 type CardProps = Pick<
   User,
@@ -133,7 +134,7 @@ const UserName = styled(Card.Title)`
 `;
 
 const ScreenName = styled(Card.Text)`
-  color: rgb(102, 117, 127);
+  color: ${color.gray};
   margin-bottom: 6px;
 `;
 
