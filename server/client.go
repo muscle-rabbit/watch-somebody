@@ -44,26 +44,25 @@ func (*Client) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
 		log.Println("hello from golang in get method")
 		encoder := json.NewEncoder(w)
-		encoder.Encode(getVerifiedUserObjects(client.UserData["query"]))
+		encoder.Encode(getUsers(client.UserData["query"]))
 		w.Header().Set("Server", "A Go Web Server")
 	default:
 		fmt.Fprintf(w, "Sorry, only POST methods are supported.")
 	}
 }
 
-func getVerifiedUserObjects(target string) *[]anaconda.User {
-	var verifiedUsers []anaconda.User
+func getUsers(target string) *[]anaconda.User {
 	users, err := client.TwitterAPI.GetUserSearch(target, nil)
 	if err != nil {
 		log.Fatal("twitter eror")
 		panic(err)
 	}
+	return &users
 
-	for _, user := range users {
-		if user.Verified == true {
-			verifiedUsers = append(verifiedUsers, user)
-		}
-	}
-
-	return &verifiedUsers
+	// for _, user := range users {
+	// 	if user.Verified == true {
+	// 		verifiedUsers = append(verifiedUsers, user)
+	// 	}
+	// }
 }
+

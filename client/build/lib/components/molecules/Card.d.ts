@@ -5,7 +5,6 @@ declare type CardProps = Pick<User, 'id_str' | 'name' | 'screen_name' | 'default
 declare type Props = {
     url: string;
     onSelect: React.Dispatch<GetTimeline | undefined>;
-    onSubmit: (target: string) => void;
 };
 declare const component: React.FC<CardProps>;
 export default component;

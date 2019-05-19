@@ -23,7 +23,6 @@ type CardProps = Pick<
 type Props = {
   url: string;
   onSelect: React.Dispatch<GetTimeline | undefined>;
-  onSubmit: (target: string) => void;
 };
 
 const component: React.FC<CardProps> = ({
@@ -36,7 +35,6 @@ const component: React.FC<CardProps> = ({
   url,
   description,
   onSelect,
-  onSubmit,
   ...props
 }) => {
   return (
