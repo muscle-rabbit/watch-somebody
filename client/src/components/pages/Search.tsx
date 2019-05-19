@@ -12,7 +12,7 @@ import TwitterTimeLineContainer from '../../containers/TwitterTimeLineContainer'
 import Card from '../molecules/Card';
 import { Button } from 'react-bootstrap';
 
-export type GetTimeline = Pick<User, 'id_str' | 'name'>;
+export type GetTimeline = Pick<User, 'screen_name' | 'name'>;
 
 interface Props extends RouteComponentProps {}
 
@@ -23,13 +23,15 @@ const component: React.FC<Props> = ({ history }) => {
   ] = useState();
 
   async function submitUser(
-    id_str: string,
+    screen_name: string,
     timelineCallback: (tweets: ITweet[]) => void,
     programsCallback: (any: any[]) => void
   ) {
-    if (id_str === '') alert('追っかけしたい人を選択して下さい。');
+    if (screen_name === '') alert('追っかけしたい人を選択して下さい。');
     try {
-      await axios.post<Pick<User, 'id_str'>>('/dashboard', { id_str: id_str });
+      await axios.post<Pick<User, 'screen_name'>>('/dashboard', {
+        sceen_name: screen_name
+      });
       await axios.get<ITweet[]>('/dashboard').then(r => {
         timelineCallback(r.data);
       });
@@ -58,7 +60,7 @@ const component: React.FC<Props> = ({ history }) => {
             <Button
               onClick={() =>
                 submitUser(
-                  selectedUser !== undefined ? selectedUser.id_str : '',
+                  selectedUser !== undefined ? selectedUser.screen_name : '',
                   timeline.setTimeline,
                   programs.setUsers
                 )

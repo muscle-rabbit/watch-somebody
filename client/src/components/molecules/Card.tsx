@@ -52,7 +52,7 @@ const component: React.FC<CardProps> = ({
           <Button
             onClick={() =>
               onSelect({
-                id_str: id_str,
+                screen_name:screen_name,
                 name: name
               })
             }

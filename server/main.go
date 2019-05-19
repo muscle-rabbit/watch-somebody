@@ -65,7 +65,7 @@ func tweetTimelineHandler(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
 		log.Println("hello from golang in get method in dashboard")
 		encoder := json.NewEncoder(w)
-		encoder.Encode(getTimeline(client.UserData["id_str"]))
+		encoder.Encode(getTimeline(client.UserData["screen_name"]))
 		w.Header().Set("Server", "A Go Web Server")
 	default:
 		fmt.Fprintf(w, "Sorry, only POST methods are supported.")
@@ -88,7 +88,7 @@ func programsHandler(w http.ResponseWriter, r *http.Request) {
 		encoder := json.NewEncoder(w)
 		// log.Println(client.UserData["id_str"])
 		// encoder.Encode(getTVPrograms(client.UserData["id_str"]))
-		encoder.Encode(getTVPrograms("千鳥"))
+		encoder.Encode(getTVPrograms(client.UserData["screen_name"]))
 		w.Header().Set("Server", "A Go Web Server")
 	}
 }
