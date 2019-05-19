@@ -29,10 +29,11 @@ const component: React.FC<Props> = ({ history }) => {
   ) {
     if (screen_name === '') alert('追っかけしたい人を選択して下さい。');
     try {
-      await axios.post<Pick<User, 'screen_name'>>('/dashboard', {
-        sceen_name: screen_name
+      console.log(screen_name);
+      await axios.post<Pick<User, 'screen_name'>>('/dashboard/timeline', {
+        screen_name: screen_name
       });
-      await axios.get<ITweet[]>('/dashboard').then(r => {
+      await axios.get<ITweet[]>('/dashboard/timeline').then(r => {
         timelineCallback(r.data);
       });
       await axios.get<any[]>('/dashboard/programs').then(r => {

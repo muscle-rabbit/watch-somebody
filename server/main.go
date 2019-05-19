@@ -36,7 +36,7 @@ type Genre struct {
 }
 
 func tweetTimelineHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/dashboard" {
+	if r.URL.Path != "/dashboard/timeline" {
 		http.Error(w, "404 not found.", http.StatusNotFound)
 		return
 	}
@@ -54,7 +54,6 @@ func tweetTimelineHandler(w http.ResponseWriter, r *http.Request) {
 			log.Fatal("decoder error")
 			panic(err)
 		}
-		log.Println(client.UserData["id_str"])
 		w.Header().Set("Server", "A Go Web Server")
 		w.WriteHeader(200)
 	case "GET":
@@ -65,6 +64,7 @@ func tweetTimelineHandler(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
 		log.Println("hello from golang in get method in dashboard")
 		encoder := json.NewEncoder(w)
+		log.Println(client.UserData["screen_name"])
 		encoder.Encode(getTimeline(client.UserData["screen_name"]))
 		w.Header().Set("Server", "A Go Web Server")
 	default:
@@ -86,9 +86,8 @@ func programsHandler(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
 		log.Println("hello from golang in get method in dashboard programs")
 		encoder := json.NewEncoder(w)
-		// log.Println(client.UserData["id_str"])
-		// encoder.Encode(getTVPrograms(client.UserData["id_str"]))
-		encoder.Encode(getTVPrograms(client.UserData["screen_name"]))
+		println(client.UserData["screen_name"])
+		encoder.Encode(getTVPrograms("千鳥"))
 		w.Header().Set("Server", "A Go Web Server")
 	}
 }
@@ -100,7 +99,7 @@ func main() {
 	client = Client{TwitterAPI: api}
 	http.Handle("/", fs)
 	http.Handle("/search", &client)
-	http.HandleFunc("/dashboard", tweetTimelineHandler)
+	http.HandleFunc("/dashboard/timeline", tweetTimelineHandler)
 	http.HandleFunc("/dashboard/programs", programsHandler)
 
 	if err := http.ListenAndServe(":8080", nil); err != nil {
@@ -108,9 +107,9 @@ func main() {
 	}
 }
 
-func getTimeline(idStr string) *[]anaconda.Tweet {
+func getTimeline(screen_name string) *[]anaconda.Tweet {
 	queryMap := url.Values{}
-	queryMap.Set("user_id", idStr)
+	queryMap.Set("screen_name", screen_name)
 	twieets, err := client.TwitterAPI.GetUserTimeline(queryMap)
 	if err != nil {
 		log.Println("error")
