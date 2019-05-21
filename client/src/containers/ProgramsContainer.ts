@@ -1,6 +1,6 @@
 import { Container } from 'unstated-typescript';
 
-type Program = {
+export type Program = {
   title: string;
   schedule: {
     begin: string;
@@ -11,7 +11,7 @@ type Program = {
     category: string;
     subcategory: string;
   };
-  statinon: string;
+  station: string;
 };
 
 type State = {

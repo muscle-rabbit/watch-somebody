@@ -75,6 +75,7 @@ export default component;
 const OutWrapper = styled.blockquote`
   padding: 12px;
   width: 498px;
+  border-top: 0.5px solid ${color.gray};
 `;
 
 const TweetHeader = styled.div`

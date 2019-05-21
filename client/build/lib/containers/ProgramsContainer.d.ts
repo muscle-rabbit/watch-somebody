@@ -1,5 +1,5 @@
 import { Container } from 'unstated-typescript';
-declare type Program = {
+export declare type Program = {
     title: string;
     schedule: {
         begin: string;
@@ -10,7 +10,7 @@ declare type Program = {
         category: string;
         subcategory: string;
     };
-    statinon: string;
+    station: string;
 };
 declare type State = {
     programs: Program[];

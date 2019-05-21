@@ -27,7 +27,7 @@ type Program struct {
 
 type Schedule struct {
 	Begin time.Time `json:"begin"`
-	Until time.Time `json:"begin"`
+	Until time.Time `json:"until"`
 }
 
 type Genre struct {
@@ -86,7 +86,6 @@ func programsHandler(w http.ResponseWriter, r *http.Request) {
 		defer r.Body.Close()
 		log.Println("hello from golang in get method in dashboard programs")
 		encoder := json.NewEncoder(w)
-		println(client.UserData["screen_name"])
 		encoder.Encode(getTVPrograms("千鳥"))
 		w.Header().Set("Server", "A Go Web Server")
 	}
