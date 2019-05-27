@@ -23,22 +23,31 @@ const component: React.FC<Props> = ({ history }) => {
   ] = useState();
 
   async function submitUser(
+    target_name: string,
     screen_name: string,
     timelineCallback: (tweets: ITweet[]) => void,
     programsCallback: (any: any[]) => void
   ) {
     if (screen_name === '') alert('追っかけしたい人を選択して下さい。');
     try {
-      console.log(screen_name);
-      await axios.post<Pick<User, 'screen_name'>>('/dashboard/timeline', {
-        screen_name: screen_name
-      });
-      await axios.get<ITweet[]>('/dashboard/timeline').then(r => {
-        timelineCallback(r.data);
-      });
-      await axios.get<any[]>('/dashboard/programs').then(r => {
-        programsCallback(r.data);
-      });
+      // await axios.post<Pick<User, 'screen_name'>>(
+      //   `/page/dashboard/timeline?q=${screen_name}`,
+      //   {
+      //     screen_name: screen_name
+      //   }
+      // );
+      await axios
+        .get<ITweet[]>(`/page/dashboard/fetch/timeline/?q=${screen_name}`)
+        .then(r => {
+          console.log('this is timeline data.', r.data);
+          timelineCallback(r.data);
+        });
+      await axios
+        .get<any[]>(`/page/dashboard/fetch/programs/?q=${target_name}`)
+        .then(r => {
+          console.log('this is program data.', r.data);
+          programsCallback(r.data);
+        });
     } catch (e) {
       throw Error(e);
     }
@@ -61,6 +70,7 @@ const component: React.FC<Props> = ({ history }) => {
             <Button
               onClick={() =>
                 submitUser(
+                  search.state.query,
                   selectedUser !== undefined ? selectedUser.screen_name : '',
                   timeline.setTimeline,
                   programs.setUsers

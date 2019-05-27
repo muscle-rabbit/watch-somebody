@@ -11,7 +11,7 @@ interface Props {}
 const component: React.FC<Props> = () => (
   <Router>
     <Route exact path="/" component={Toppage} />
-    <Route path="/search" component={Search} />
+    <Route path="/page/search" component={Search} />
     <Route path="/dashboard" component={Dashboard} />
   </Router>
 );

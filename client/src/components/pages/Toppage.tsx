@@ -33,13 +33,13 @@ const component: React.FC<Props> = ({ history }) => {
   ) => {
     try {
       await axios
-        .post('/search', { query: query })
+        .post('/page/search/', { query: query })
         .then(res => console.log(res))
         .catch(res => console.log(res));
-      await axios.get<User[]>('/search').then(r => {
+      await axios.get<User[]>(`/page/search/?q=${query}`).then(r => {
         callback(r.data);
       });
-      history.push(`/search?q=${query}`);
+      history.push(`/page/search/?q=${query}`);
     } catch (e) {
       throw Error(e);
     }

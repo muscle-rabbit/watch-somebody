@@ -12,36 +12,39 @@ interface Props {}
 const component: React.FC<Props> = () => {
   return (
     <Subscribe to={[TwitterTimeLineContainer, ProgramsContainer]}>
-      {(timeline, programs) => (
-        <OutWrapper>
-          <Timeline>
-            <h1>タイムライン</h1>
-            {timeline.state.timeline.map(tweet => (
-              <Tweet
-                name={tweet.user.name}
-                screen_name={tweet.user.screen_name}
-                profile_image_url_https={tweet.user.profile_image_url_https}
-                url={`https://twitter.com/${tweet.user.screen_name}`}
-                text={tweet.full_text}
-                favorite_count={tweet.favorite_count}
-                created_at={tweet.created_at}
-              />
-            ))}
-          </Timeline>
-          <Programs>
-            <h1>テレビ欄</h1>
-            {programs.state.programs.map(program => (
-              <Program
-                title={program.title}
-                schedule={program.schedule}
-                description={program.description}
-                genre={program.genre}
-                station={program.station}
-              />
-            ))}
-          </Programs>
-        </OutWrapper>
-      )}
+      {(timeline, programs) => {
+        console.log('this is timeline and programs', timeline, programs);
+        return (
+          <OutWrapper>
+            <Timeline>
+              <h1>タイムライン</h1>
+              {timeline.state.timeline.map(tweet => (
+                <Tweet
+                  name={tweet.user.name}
+                  screen_name={tweet.user.screen_name}
+                  profile_image_url_https={tweet.user.profile_image_url_https}
+                  url={`https://twitter.com/${tweet.user.screen_name}`}
+                  text={tweet.full_text}
+                  favorite_count={tweet.favorite_count}
+                  created_at={tweet.created_at}
+                />
+              ))}
+            </Timeline>
+            <Programs>
+              <h1>テレビ欄</h1>
+              {programs.state.programs.map(program => (
+                <Program
+                  title={program.title}
+                  schedule={program.schedule}
+                  description={program.description}
+                  genre={program.genre}
+                  station={program.station}
+                />
+              ))}
+            </Programs>
+          </OutWrapper>
+        );
+      }}
     </Subscribe>
   );
 };
