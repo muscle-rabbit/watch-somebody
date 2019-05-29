@@ -5,15 +5,18 @@ import { Subscribe } from 'unstated-typescript';
 import Tweet from '../organism/Tweet';
 import ProgramsContainer from '../../containers/ProgramsContainer';
 import TwitterTimeLineContainer from '../../containers/TwitterTimeLineContainer';
+import NewsContainer, { INews } from '../../containers/NewsContainer';
 import Program from '../organism/Program';
+import News from '../organism/News';
 
 interface Props {}
 
 const component: React.FC<Props> = () => {
   return (
-    <Subscribe to={[TwitterTimeLineContainer, ProgramsContainer]}>
-      {(timeline, programs) => {
-        console.log('this is timeline and programs', timeline, programs);
+    <Subscribe
+      to={[TwitterTimeLineContainer, ProgramsContainer, NewsContainer]}
+    >
+      {(timeline, programs, news) => {
         return (
           <OutWrapper>
             <Timeline>
@@ -42,6 +45,12 @@ const component: React.FC<Props> = () => {
                 />
               ))}
             </Programs>
+            <NewsList>
+              <h1>News</h1>
+              {news.state.newslist.map(news => (
+                <News header={news.header} contents={news.contents} />
+              ))}
+            </NewsList>
           </OutWrapper>
         );
       }}
@@ -64,3 +73,5 @@ const Programs = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+const NewsList = styled.div``;

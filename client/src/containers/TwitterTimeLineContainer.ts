@@ -5,11 +5,11 @@ type State = {
   timeline: ITweet[];
 };
 
-class TwitterUsersContainers extends Container<State> {
+class TimelineContainers extends Container<State> {
   public state: { timeline: ITweet[] } = { timeline: [] };
   public setTimeline = async (timeline: ITweet[]) => {
     await this.setState({ timeline: timeline });
   };
 }
 
-export default TwitterUsersContainers;
+export default TimelineContainers;

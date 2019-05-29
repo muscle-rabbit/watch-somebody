@@ -26,18 +26,6 @@ func NewHandler(db *sql.DB, tapi *anaconda.TwitterApi) *Handler {
 	return &Handler{DB: &DB{db}, Api: &api.Api{Twitter: tapi}}
 }
 
-// func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-// 	var client = client{}
-// 	vars := mux.Vars(r)
-// 	page := vars["page"]
-// 	switch page {
-// 	case "dashboard":
-// 		h.dashboardHandler(w, r, &client)
-// 	case "search":
-// 		h.searchHandler(w, r, &client)
-// 	}
-// }
-
 func (h *Handler) SearchHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/page/search/" {
 		http.Error(w, "404 not found.", http.StatusNotFound)
@@ -85,6 +73,8 @@ func (h *Handler) DashboardHandler(w http.ResponseWriter, r *http.Request) {
 		h.TimelineHandler(w, r)
 	case fetch == "programs":
 		h.ProgramHandler(w, r)
+	case fetch == "news":
+		h.NewsHanlder(w, r)
 	}
 }
 
@@ -95,21 +85,6 @@ func (h *Handler) TimelineHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	switch r.Method {
-	// case "POST":
-	// 	if err := r.ParseForm(); err != nil {
-	// 		fmt.Fprintf(w, "ParseForm() err: %v", err)
-	// 		return
-	// 	}
-	// 	defer r.Body.Close()
-	// 	log.Println("hello from golang in post method")
-	// 	decoder := json.NewDecoder(r.Body)
-	// 	err := decoder.Decode(&client.userData)
-	// 	if err != nil {
-	// 		log.Fatal("decoder error")
-	// 		panic(err)
-	// 	}
-	// 	w.Header().Set("Server", "A Go Web Server")
-	// 	w.WriteHeader(200)
 	case "GET":
 		log.Println("hello from golang in get method")
 		if err := r.ParseForm(); err != nil {
@@ -146,6 +121,29 @@ func (h *Handler) ProgramHandler(w http.ResponseWriter, r *http.Request) {
 		v := r.URL.Query()
 		encoder := json.NewEncoder(w)
 		if err := encoder.Encode(h.Api.GetTVPrograms(v["q"][0])); err != nil {
+			log.Fatal(err)
+			panic(err)
+		}
+		w.Header().Set("Server", "A Go Web Server")
+	}
+}
+
+func (h *Handler) NewsHanlder(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/page/dashboard/fetch/news/" {
+		http.Error(w, "404 not found.", http.StatusNotFound)
+		return
+	}
+	switch r.Method {
+	case "GET":
+		if err := r.ParseForm(); err != nil {
+			fmt.Fprintf(w, "ParseForm() err: %v", err)
+			return
+		}
+		defer r.Body.Close()
+		v := r.URL.Query()
+		encoder := json.NewEncoder(w)
+		news := h.Api.GetNews(v["q"][0])
+		if err := encoder.Encode(news); err != nil {
 			log.Fatal(err)
 			panic(err)
 		}

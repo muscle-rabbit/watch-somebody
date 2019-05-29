@@ -3,10 +3,10 @@ import { Status as ITweet } from 'twitter-d';
 declare type State = {
     timeline: ITweet[];
 };
-declare class TwitterUsersContainers extends Container<State> {
+declare class TimelineContainers extends Container<State> {
     state: {
         timeline: ITweet[];
     };
     setTimeline: (timeline: ITweet[]) => Promise<void>;
 }
-export default TwitterUsersContainers;
+export default TimelineContainers;

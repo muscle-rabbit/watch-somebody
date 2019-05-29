@@ -14,7 +14,6 @@ const component: React.FC<Program> = ({
   station,
   ...props
 }) => {
-  console.log(schedule);
   return (
     <OutWrapper {...props}>
       <Title>{title}</Title>

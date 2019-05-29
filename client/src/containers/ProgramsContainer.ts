@@ -18,11 +18,11 @@ type State = {
   programs: Program[];
 };
 
-class TwitterUsersContainers extends Container<State> {
+class ProgramsContainer extends Container<State> {
   public state: { programs: Program[] } = { programs: [] };
-  public setUsers = async (programs: Program[]) => {
+  public setPrograms = async (programs: Program[]) => {
     await this.setState({ programs: programs });
   };
 }
 
-export default TwitterUsersContainers;
+export default ProgramsContainer;

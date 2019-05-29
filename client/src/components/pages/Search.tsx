@@ -7,8 +7,10 @@ import { RouteComponentProps } from 'react-router-dom';
 
 import SearchContainer from '../../containers/SearchContainer';
 import TwitterUsersContainer from '../../containers/TwitterUsersContainer';
-import ProgramsContainer from '../../containers/ProgramsContainer';
+import ProgramsContainer, { Program } from '../../containers/ProgramsContainer';
 import TwitterTimeLineContainer from '../../containers/TwitterTimeLineContainer';
+import NewsContainer from '../../containers/NewsContainer';
+import { INews } from '../../containers/NewsContainer';
 import Card from '../molecules/Card';
 import { Button } from 'react-bootstrap';
 
@@ -26,27 +28,25 @@ const component: React.FC<Props> = ({ history }) => {
     target_name: string,
     screen_name: string,
     timelineCallback: (tweets: ITweet[]) => void,
-    programsCallback: (any: any[]) => void
+    programsCallback: (programs: Program[]) => void,
+    newsCallback: (news: INews[]) => void
   ) {
     if (screen_name === '') alert('追っかけしたい人を選択して下さい。');
     try {
-      // await axios.post<Pick<User, 'screen_name'>>(
-      //   `/page/dashboard/timeline?q=${screen_name}`,
-      //   {
-      //     screen_name: screen_name
-      //   }
-      // );
       await axios
         .get<ITweet[]>(`/page/dashboard/fetch/timeline/?q=${screen_name}`)
         .then(r => {
-          console.log('this is timeline data.', r.data);
           timelineCallback(r.data);
         });
       await axios
-        .get<any[]>(`/page/dashboard/fetch/programs/?q=${target_name}`)
+        .get<Program[]>(`/page/dashboard/fetch/programs/?q=${target_name}`)
         .then(r => {
-          console.log('this is program data.', r.data);
           programsCallback(r.data);
+        });
+      await axios
+        .get<INews[]>(`/page/dashboard/fetch/news/?q=${target_name}`)
+        .then(r => {
+          newsCallback(r.data);
         });
     } catch (e) {
       throw Error(e);
@@ -60,10 +60,11 @@ const component: React.FC<Props> = ({ history }) => {
         SearchContainer,
         TwitterUsersContainer,
         ProgramsContainer,
-        TwitterTimeLineContainer
+        TwitterTimeLineContainer,
+        NewsContainer
       ]}
     >
-      {(search, twitter, programs, timeline) => {
+      {(search, twitter, programs, timeline, news) => {
         return (
           <div>
             <h1>this is search query: {search.state.query}</h1>
@@ -73,7 +74,8 @@ const component: React.FC<Props> = ({ history }) => {
                   search.state.query,
                   selectedUser !== undefined ? selectedUser.screen_name : '',
                   timeline.setTimeline,
-                  programs.setUsers
+                  programs.setPrograms,
+                  news.setNews
                 )
               }
             >

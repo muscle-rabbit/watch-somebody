@@ -30,7 +30,6 @@ type genre struct {
 }
 
 func (api *Api) GetTVPrograms(key string) *[]program {
-	fmt.Println("hello from programs method and key is: ", key)
 	doc, err := goquery.NewDocument("https://tv.yahoo.co.jp/search/?q=" + key)
 	if err != nil {
 		fmt.Print("document not found. ")
@@ -115,6 +114,5 @@ func (api *Api) GetTVPrograms(key string) *[]program {
 		})
 		programs = append(programs, program)
 	})
-	fmt.Println("this is programs", programs)
 	return &programs
 }

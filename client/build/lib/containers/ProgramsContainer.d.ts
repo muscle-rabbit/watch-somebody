@@ -15,10 +15,10 @@ export declare type Program = {
 declare type State = {
     programs: Program[];
 };
-declare class TwitterUsersContainers extends Container<State> {
+declare class ProgramsContainer extends Container<State> {
     state: {
         programs: Program[];
     };
-    setUsers: (programs: Program[]) => Promise<void>;
+    setPrograms: (programs: Program[]) => Promise<void>;
 }
-export default TwitterUsersContainers;
+export default ProgramsContainer;
