@@ -8,10 +8,11 @@ import (
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/gorilla/mux"
 	"github.com/shinyamizuno1008/watch-somebody/server/database"
+	"github.com/shinyamizuno1008/watch-somebody/server/env"
 )
 
 func main() {
-	api := anaconda.NewTwitterApiWithCredentials("973805197523906560-p5UX08QTzbYsIlbudD9MlqL7GyYaoal", "YDNsHJ8dpDXIEUAQotqH4SsE6wwlGt0V2GFbDZKKToM7f", "q7sRsAMlYGfFubENPogmgM4S0", "s3wUvTHeVJAiC8fjYCgDALi2yegrNd3ZvakXe5zGjUO3uKdXWY")
+	api := anaconda.NewTwitterApiWithCredentials(env.Keys.Access_token, env.Keys.Access_token_secret, env.Keys.Consumer_key, env.Keys.Consumer_secret)
 	db, err := sql.Open("mysql", "root:shinbee1@/watch_somebody")
 	r := mux.NewRouter()
 
