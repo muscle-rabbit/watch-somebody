@@ -1,7 +1,6 @@
 client/node_modules/
 .vscode/
 yarn-error.log
-/dist/
 yarn.lock
 server/env/
 server/vendor/
