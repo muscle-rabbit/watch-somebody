@@ -13,7 +13,7 @@ import (
 
 func main() {
 	api := anaconda.NewTwitterApiWithCredentials(env.Keys.Access_token, env.Keys.Access_token_secret, env.Keys.Consumer_key, env.Keys.Consumer_secret)
-	db, err := sql.Open("mysql", "root:shinbee1@/watch_somebody")
+	db, err := sql.Open("mysql", env.DBUserInfo.User+":"+env.DBUserInfo.Password+"@/watch_somebody")
 	r := mux.NewRouter()
 
 	if err != nil {
