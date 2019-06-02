@@ -1,4 +1,4 @@
-package database
+package DB
 
 import (
 	"database/sql"
@@ -149,4 +149,12 @@ func (h *Handler) NewsHanlder(w http.ResponseWriter, r *http.Request) {
 		}
 		w.Header().Set("Server", "A Go Web Server")
 	}
+}
+
+func (h *Handler) HealthChecker(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/liveness_check/" {
+		http.Error(w, "404 not found", http.StatusNotFound)
+		return
+	}
+	fmt.Fprint(w, "ok")
 }

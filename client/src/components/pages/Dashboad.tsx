@@ -21,8 +21,9 @@ const component: React.FC<Props> = () => {
           <OutWrapper>
             <Timeline>
               <h1>タイムライン</h1>
-              {timeline.state.timeline.map(tweet => (
+              {timeline.state.timeline.map((tweet, i) => (
                 <Tweet
+                  key={tweet.id}
                   name={tweet.user.name}
                   screen_name={tweet.user.screen_name}
                   profile_image_url_https={tweet.user.profile_image_url_https}
@@ -35,8 +36,9 @@ const component: React.FC<Props> = () => {
             </Timeline>
             <Programs>
               <h1>テレビ欄</h1>
-              {programs.state.programs.map(program => (
+              {programs.state.programs.map((program, i) => (
                 <Program
+                  key={i}
                   title={program.title}
                   schedule={program.schedule}
                   description={program.description}
@@ -47,8 +49,8 @@ const component: React.FC<Props> = () => {
             </Programs>
             <NewsList>
               <h1>News</h1>
-              {news.state.newslist.map(news => (
-                <News header={news.header} contents={news.contents} />
+              {news.state.newslist.map((news, i) => (
+                <News key={i} header={news.header} contents={news.contents} />
               ))}
             </NewsList>
           </OutWrapper>

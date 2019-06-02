@@ -29,7 +29,7 @@ module.exports = {
     }
   },
   output: {
-    path: path.resolve(__dirname, '../dist')
+    path: path.resolve(__dirname, '../server/service/static')
   },
   plugins: [
     new htmlWebpackPlugin({

@@ -74,6 +74,14 @@
   version = "v1.4.1"
 
 [[projects]]
+  digest = "1:318f1c959a8a740366fce4b1e1eb2fd914036b4af58fbd0a003349b305f118ad"
+  name = "github.com/golang/protobuf"
+  packages = ["proto"]
+  pruneopts = "UT"
+  revision = "b5d812f8a3706043e23a9cd5babf2e5423744d30"
+  version = "v1.3.1"
+
+[[projects]]
   digest = "1:3af6be4fee7c08f81f13d36f04ffb63ad4b6b5aaba12cce96095c7c2863d4912"
   name = "github.com/gorilla/mux"
   packages = ["."]
@@ -94,9 +102,19 @@
   revision = "3ec19112720433827bbce8be9342797f5a6aaaf9"
 
 [[projects]]
-  digest = "1:c25289f43ac4a68d88b02245742347c94f1e108c534dda442188015ff80669b3"
+  digest = "1:af020bbff61a2f1c415f928949338df4ae615a90e6decdcd5ed2479e6f9731f8"
   name = "google.golang.org/appengine"
-  packages = ["cloudsql"]
+  packages = [
+    ".",
+    "cloudsql",
+    "internal",
+    "internal/app_identity",
+    "internal/base",
+    "internal/datastore",
+    "internal/log",
+    "internal/modules",
+    "internal/remote_api",
+  ]
   pruneopts = "UT"
   revision = "4c25cacc810c02874000e4f7071286a8e96b2515"
   version = "v1.6.0"
@@ -109,6 +127,7 @@
     "github.com/PuerkitoBio/goquery",
     "github.com/go-sql-driver/mysql",
     "github.com/gorilla/mux",
+    "google.golang.org/appengine",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

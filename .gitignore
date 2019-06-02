@@ -3,3 +3,6 @@ client/node_modules/
 yarn-error.log
 /dist/
 yarn.lock
+server/env/
+server/vendor/
+server/service/static

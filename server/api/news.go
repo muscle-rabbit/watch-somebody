@@ -28,7 +28,7 @@ func (api *Api) GetNews(query string) *[]News {
 	}
 	newsList := []News{}
 	doc.Find("entry").Each(func(i int, s *goquery.Selection) {
-		if i >= 30 {
+		if i >= 10 {
 			return
 		}
 		news := News{}
